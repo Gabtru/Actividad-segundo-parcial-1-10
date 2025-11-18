@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Preferencias{% endblock %}
+
+{% block content %}
+  <h2>Preferencias</h2>
+
+  <div class="form-container form-medium">
+    <form method="post">
+      <label>Nuevo email
+        <input type="email" name="email" placeholder="{{ user.email }}">
+      </label>
+      <label>Nueva contraseña
+        <input type="password" name="password" placeholder="Mínimo 6 caracteres">
+      </label>
+      <button type="submit">Guardar cambios</button>
+    </form>
+  </div>
+{% endblock %}

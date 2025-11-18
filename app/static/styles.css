@@ -1,0 +1,517 @@
+/* app/static/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* === 1. Variables y Reseteo (Tema MediaMarkt) === */
+:root {
+  --primary: #e50000; /* Rojo MediaMarkt */
+  --primary-light: #ff3333;
+  --accent: #333333; /* Gris oscuro para acentos */
+  --bg: #f4f4f4; /* Fondo gris muy claro */
+  --text: #212529;
+  --text-light: #6c757d;
+  --card-bg: #ffffff; /* Tarjetas en blanco puro */
+  --border-color: #e9ecef;
+  --radius: 0.5rem; /* Bordes ligeramente más sutiles */
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --primary: #e50000; /* El rojo destaca bien en oscuro */
+  --accent: #f4f4f4;
+  --bg: #121212;
+  --text: #e8e8e8;
+  --text-light: #aaa;
+  --card-bg: #1e1e1e;
+  --border-color: #333;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === 2. Layout (Contenedor y Header/Footer) === */
+.container {
+  max-width: 1100px; /* Un poco más ancho */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+main.container {
+  flex-grow: 1;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header estilo MediaMarkt */
+.navbar {
+  background-color: var(--primary); /* Fondo rojo */
+  padding: 0.5rem 0; /* Más delgado */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand strong {
+  font-size: 1.75rem;
+  color: #fff; /* Texto blanco */
+  text-decoration: none;
+}
+.navbar-brand:hover {
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-links span {
+  color: #f0f0f0; /* Texto de usuario blanco */
+  font-size: 0.9rem;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #fff; /* Texto blanco */
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  transition: background-color 0.2s;
+}
+
+.navbar-links a:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Oscurecer al pasar */
+  text-decoration: none;
+}
+
+.site-footer {
+  background-color: var(--accent); /* Footer oscuro */
+  color: var(--text-light);
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  flex-shrink: 0;
+}
+.site-footer p {
+  color: #fff;
+}
+
+/* === 3. Componentes (Tarjetas, Formularios, Botones) === */
+h2 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid var(--primary); /* Subrayado rojo */
+  padding-bottom: 0.5rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem; /* Padding más ajustado */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; /* Para el botón de borrado */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* *** NUEVA CLASE (Punto 6) *** */
+.card-img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.card h4 {
+  margin-top: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.card p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.card p strong {
+  color: var(--text); /* Precio en color de texto normal */
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Formularios */
+.form-container {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-left: auto;
+  margin-right: auto;
+}
+.form-narrow { max-width: 400px; }
+.form-medium { max-width: 520px; }
+
+form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+form p small {
+  display: block;
+  margin-top: 1rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(229, 0, 0, 0.2);
+}
+
+/* *** NUEVA REGLA DE ACCESIBILIDAD (Punto 8) *** */
+/* Muestra un contorno solo al navegar con teclado */
+:focus-visible {
+  outline: 3px solid var(--primary-light);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(229, 0, 0, 0.2);
+}
+
+
+/* Botón principal (rojo) */
+button, a[role="button"] {
+  display: inline-block;
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  text-decoration: none;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover, a[role="button"]:hover {
+  background-color: var(--primary-light); /* Rojo más claro */
+  transform: scale(1.02);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Botón secundario (gris) */
+button.secondary, a[role="button"].secondary {
+  background-color: var(--accent);
+}
+button.secondary:hover, a[role="button"].secondary:hover {
+  background-color: #555;
+}
+
+/* Mensajes Flash (los de login/logout) */
+.flash-messages { margin-bottom: 1rem; }
+.flash {
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.flash-success { background-color: #d1e7dd; color: #0f5132; border-color: #badbcc;}
+.flash-danger { background-color: #f8d7da; color: #842029; border-color: #f5c2c7;}
+.flash-info { background-color: #cff4fc; color: #055160; border-color: #b6effb;}
+.flash-warning { background-color: #fff3cd; color: #664d03; border-color: #ffecb5;}
+
+.center-page-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 2rem 0;
+}
+
+/* Interruptor de Tema */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #f0f0f0; /* Blanco en header rojo */
+}
+.theme-switch:hover { color: #fff; }
+.theme-switch-toggle {
+  background: var(--accent);
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  transition: background-color 0.2s;
+}
+.theme-switch-toggle::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+[data-theme="dark"] .theme-switch-toggle { background: var(--primary-light); }
+[data-theme="dark"] .theme-switch-toggle::before { transform: translateX(20px); }
+
+/* Esqueleto de Carga (Skeleton) */
+@keyframes pulse {
+  0% { background-color: var(--border-color); }
+  50% { background-color: #f0f0f0; }
+  100% { background-color: var(--border-color); }
+}
+.skeleton-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.skeleton-card .img {
+  width: 100%;
+  height: 140px;
+  border-radius: 8px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+.skeleton-card .line {
+  height: 1.2rem;
+  margin-top: 1rem;
+  width: 90%;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+.skeleton-card .line-short {
+  width: 60%;
+  height: 1rem;
+  margin-top: 0.75rem;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* --- Botones de Tarjeta (Nuevo) --- */
+.card .card-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between; /* Alinea botones */
+  align-items: center;
+}
+/* Botón de "Añadir" (ficticio) */
+.buy-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: auto; /* Ancho automático */
+}
+.buy-btn:hover {
+  background: var(--primary-light);
+}
+
+/* Botón de borrado (sutil) */
+.delete-btn {
+  position: absolute; /* Esquina superior derecha */
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%; /* Círculo */
+  transition: color 0.2s, background-color 0.2s, opacity 0.2s;
+  opacity: 0.5; /* Sutil hasta hover */
+}
+.card:hover .delete-btn {
+  opacity: 1; /* Visible en hover de tarjeta */
+}
+.delete-btn:hover {
+  color: var(--primary);
+  background-color: #f8d7da;
+  opacity: 1;
+}
+.delete-btn svg {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+/* --- Mensajes de Formulario API (Ocultos, usamos Toasts ahora) --- */
+.form-message { display: none; }
+
+/* --- NUEVO: Contenedor de Notificaciones (Toast) --- */
+#notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.notification-toast {
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideIn 0.3s forwards, fadeOut 0.5s 3s forwards;
+}
+.notification-toast.success { background-color: #20c997; color: #fff; }
+.notification-toast.error { background-color: var(--primary); color: #fff; }
+.notification-toast.info { background-color: var(--accent); color: #fff; }
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; transform: translateX(100%); }
+}
+
+/* --- NUEVO: Estilos del Modal de Confirmación --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  width: 90%;
+  max-width: 450px;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.visible .modal-content {
+  transform: scale(1);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.modal-content p {
+  margin-bottom: 2rem;
+  color: var(--text-light);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+.modal-actions button {
+  width: auto; /* Ancho automático para botones de modal */
+  padding: 0.6rem 1.2rem;
+}
+/* Botón de confirmar (rojo) */
+.modal-actions .btn-danger {
+  background-color: var(--primary);
+}
+.modal-actions .btn-danger:hover {
+  background-color: var(--primary-light);
+}
+/* Botón de cancelar (secundario) */
+.modal-actions .btn-secondary {
+  background-color: var(--border-color);
+  color: var(--text);
+}
+.modal-actions .btn-secondary:hover {
+  background-color: #ccc;
+}

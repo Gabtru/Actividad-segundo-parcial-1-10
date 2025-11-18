@@ -1,0 +1,28 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSON.parse seguro</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Arial;padding:16px}
+    textarea{width:100%;min-height:140px}
+    pre{background:#f6f8fa;padding:12px;border-radius:8px;overflow:auto}
+    .error{color:#b00020}
+  </style>
+</head>
+<body>
+  <h1>JSON.parse con try/catch</h1>
+  <p>Pega JSON en el área de texto. Prueba también ejemplos inválidos.</p>
+  <textarea id="entrada">{ "nombre":"redes", "curso":1, "horario":["L1500","X1700"] }</textarea>
+  <div style="margin:8px 0">
+    <button id="btn-parsear">Parsear</button>
+    <button id="btn-ejemplos">Cargar ejemplos inválidos</button>
+  </div>
+  <div id="mensaje" class="error"></div>
+  <h2>Objeto resultante</h2>
+  <pre id="out"></pre>
+  <script src="script.js"></script>
+</body>
+</html>
