@@ -80,7 +80,6 @@ def nuevo():
         p = Product()
         
         # --- ESTA ES LA CORRECCIÓN ---
-        # Reemplazamos 'form.populate_obj(p)' por asignación manual
         p.name = form.name.data
         p.price = form.price.data
         p.image_path = form.image_path.data
@@ -91,13 +90,27 @@ def nuevo():
         flash("Producto creado (vía HTML).", "success")
         return redirect(url_for("main.productos"))
 
-    # Pasa el 'form' al template para renderizarlo
     return render_template("nuevo.html", form=form)
 
 @main_bp.route("/productos")
 @login_required
 def productos():
     return render_template("productos.html")
+
+
+# ============================================================
+# ✅ NUEVA RUTA PARA EL TEMPLATE AJAX
+# ============================================================
+
+@main_bp.route("/ajax-timeout")
+@login_required
+def ajax_timeout():
+    """
+    Muestra el template del ejercicio AJAX con timeout y abort.
+    """
+    return render_template("ajax_timeout.html")
+
+
 
 # --- API ENDPOINTS PROFESIONALES ---
 
@@ -119,7 +132,6 @@ def api_create_producto():
         p = Product()
 
         # --- ESTA ES LA CORRECCIÓN ---
-        # Reemplazamos 'form.populate_obj(p)' por asignación manual
         p.name = form.name.data
         p.price = form.price.data
         p.image_path = form.image_path.data
@@ -127,11 +139,9 @@ def api_create_producto():
 
         db.session.add(p)
         db.session.commit()
-        # Devolvemos el objeto creado (con su nuevo ID) como JSON
-        return jsonify(p.to_dict()), 201 # 201 = Created
+        return jsonify(p.to_dict()), 201
     else:
-        # Devolvemos los errores de validación
-        return jsonify({"errors": form.errors}), 400 # 400 = Bad Request
+        return jsonify({"errors": form.errors}), 400
 
 @main_bp.route("/api/producto/<int:product_id>", methods=["DELETE"])
 @login_required
@@ -139,7 +149,7 @@ def api_delete_producto(product_id):
     """ NUEVA API: Borra un producto """
     p = Product.query.get(product_id)
     if not p:
-        abort(404) # Not Found
+        abort(404)
         
     db.session.delete(p)
     db.session.commit()

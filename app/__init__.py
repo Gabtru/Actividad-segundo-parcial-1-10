@@ -1,4 +1,3 @@
-
 import os
 import click
 from flask import Flask
@@ -20,14 +19,21 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
+    # ------------------------------
+    # Importar Modelos y Controladores
+    # ------------------------------
     from .models import User, Product  # noqa: F401
+
+    # IMPORTANTE: main_bp ahora sirve su propio static si lo necesita
     from .controllers.auth import auth_bp
     from .controllers.main import main_bp
 
     app.register_blueprint(auth_bp)
-    app.register_blueprint(main_bp)
+    app.register_blueprint(main_bp)  # <-- Aquí se cargará /ajax-timeout
 
-    # --- CLI Commands -------------------------------------------------------
+    # ----------------------------------------------------------------------
+    # CLI Commands
+    # ----------------------------------------------------------------------
     @app.cli.command("create-user")
     @click.argument("email")
     @click.argument("password")
@@ -51,12 +57,14 @@ def create_app():
         with app.app_context():
             db.drop_all()
             db.create_all()
+
             # Usuario admin
             admin_email = os.getenv("ADMIN_EMAIL", "admin@example.com")
             admin_password = os.getenv("ADMIN_PASSWORD", "admin123")
             u = User(email=admin_email)
             u.set_password(admin_password)
             db.session.add(u)
+
             # Productos demo
             demo_products = [
                 {"name": "Cuaderno A5", "price": 3.50, "image_path": "products/p1.svg"},
@@ -66,14 +74,18 @@ def create_app():
             ]
             for p in demo_products:
                 db.session.add(Product(**p))
+
             db.session.commit()
             click.echo("Base de datos inicializada con datos de ejemplo.")
 
-    # --- DB bootstrap on first run -----------------------------------------
+    # ----------------------------------------------------------------------
+    # Inicialización de BD en el primer arranque
+    # ----------------------------------------------------------------------
     with app.app_context():
         db.create_all()
         from .models import User, Product
-        # Seed admin user if missing
+
+        # Seed admin user si no existe
         admin_email = os.getenv("ADMIN_EMAIL", "admin@example.com")
         admin_password = os.getenv("ADMIN_PASSWORD", "admin123")
         if not User.query.filter_by(email=admin_email).first():
@@ -81,7 +93,8 @@ def create_app():
             u.set_password(admin_password)
             db.session.add(u)
             db.session.commit()
-        # Seed products if empty
+
+        # Seed productos si no hay ninguno
         if Product.query.count() == 0:
             demo_products = [
                 {"name": "Cuaderno A5", "price": 3.50, "image_path": "products/p1.svg"},
