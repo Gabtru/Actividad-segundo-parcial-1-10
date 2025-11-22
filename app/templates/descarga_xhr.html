@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Progreso XHR{% endblock %}
+
+{% block content %}
+    <style>
+      /* Estilos específicos para esta página */
+      progress{width:100%;height:1rem}
+      img{max-width:100%;margin-top:1rem;border-radius:.5rem}
+    </style>
+    
+    <h1>XMLHttpRequest — progreso de descarga</h1>
+    <p>Descarga una imagen grande y muestra el avance si es computable.</p>
+    
+    <button id="descargar" class="btn-primary">Descargar imagen</button>
+    <progress id="barra" max="100" value="0" aria-label="Progreso"></progress>
+    <div id="info"></div>
+    <img id="img" alt="Imagen descargada aparecerá aquí">
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/descarga.js') }}"></script>
+{% endblock %}

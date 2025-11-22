@@ -1,29 +1,40 @@
-
 {% extends "base.html" %}
+
 {% block title %}Menú - App MVC{% endblock %}
+
 {% block content %}
-  <h2>Menú principal</h2>
-  <p>Hola, {{ user.email }} 👋</p>
-  <div class="menu-grid">
-    <div class="card">
-      <h4>Usuario</h4>
-      <p>Ver y editar tus datos básicos.</p>
-      <a href="{{ url_for('main.usuario') }}" role="button">Abrir</a>
+    <h2>Menú principal</h2>
+    <p>Hola, {{ user.email }} 👋</p>
+
+    <div class="menu-grid">
+        <div class="card">
+            <h4>Usuario</h4>
+            <p>Ver y editar tus datos básicos.</p>
+            <a href="{{ url_for('main.usuario') }}" role="button">Abrir</a>
+        </div>
+
+        <div class="card">
+            <h4>Preferencias</h4>
+            <p>Configura preferencias de la aplicación.</p>
+            <a href="{{ url_for('main.preferencias') }}" role="button">Abrir</a>
+        </div>
+
+        <div class="card">
+            <h4>Nuevo</h4>
+            <p>Crea un nuevo producto.</p>
+            <a href="{{ url_for('main.nuevo') }}" role="button">Crear</a>
+        </div>
+
+        <div class="card">
+            <h4>Productos</h4>
+            <p>Explora el catálogo con imágenes.</p>
+            <a href="{{ url_for('main.productos') }}" role="button">Ver</a>
+        </div>
+
+        <div class="card">
+            <h4>Descarga XHR</h4>
+            <p>Demostración del progreso de descarga con XMLHttpRequest.</p>
+            <a href="{{ url_for('main.descarga_xhr') }}" role="button">Probar</a>
+        </div>
     </div>
-    <div class="card">
-      <h4>Preferencias</h4>
-      <p>Configura preferencias de la aplicación.</p>
-      <a href="{{ url_for('main.preferencias') }}" role="button">Abrir</a>
-    </div>
-    <div class="card">
-      <h4>Nuevo</h4>
-      <p>Crea un nuevo producto.</p>
-      <a href="{{ url_for('main.nuevo') }}" role="button">Crear</a>
-    </div>
-    <div class="card">
-      <h4>Productos</h4>
-      <p>Explora el catálogo con imágenes.</p>
-      <a href="{{ url_for('main.productos') }}" role="button">Ver</a>
-    </div>
-  </div>
 {% endblock %}

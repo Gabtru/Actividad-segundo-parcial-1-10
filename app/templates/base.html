@@ -4,18 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}App MVC{% endblock %}</title>
-    
+
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    
+
     <script>
-      (function() {
-        const theme = localStorage.getItem('theme') || 'light';
-        document.documentElement.dataset.theme = theme;
-      })();
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.dataset.theme = theme;
+        })();
     </script>
 </head>
 <body>
-    
+
     <header class="navbar">
         <div class="container">
             <a href="{{ url_for('main.menu') }}" class="navbar-brand">
@@ -29,27 +29,26 @@
                 {% else %}
                     <a href="{{ url_for('auth.login') }}">Entrar</a>
                 {% endif %}
-                
+
                 <div class="theme-switch" id="theme-switcher">
-                  <div class="theme-switch-toggle"></div>
-                  <span id="theme-label">Tema</span>
+                    <div class="theme-switch-toggle"></div>
+                    <span id="theme-label">Tema</span>
                 </div>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        
         {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <div class="flash-messages">
-              {% for category, message in messages %}
-                <div class="flash flash-{{ category }}">{{ message }}</div>
-              {% endfor %}
-            </div>
-          {% endif %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endwith %}
-        
+
         {% block content %}{% endblock %}
     </main>
 
@@ -61,27 +60,30 @@
 
     <div id="notification-container"></div>
 
-    <div class="modal-overlay" 
+    <div class="modal-overlay"
          id="confirm-modal-overlay"
          role="dialog"
          aria-modal="true"
-         aria-hidden="true" 
+         aria-hidden="true"
          aria-labelledby="confirm-modal-title"
          aria-describedby="confirm-modal-message">
-         
+
         <div class="modal-content">
             <h3 id="confirm-modal-title">Confirmar acción</h3>
             <p id="confirm-modal-message">¿Estás seguro?</p>
-            
+
             <div class="modal-actions">
                 <button class="btn-secondary" id="confirm-modal-cancel">Cancelar</button>
                 <button class="btn-danger" id="confirm-modal-confirm">Confirmar</button>
             </div>
         </div>
     </div>
+
     <script src="{{ url_for('static', filename='js/model.js') }}"></script>
     <script src="{{ url_for('static', filename='js/view.js') }}"></script>
     <script src="{{ url_for('static', filename='js/controller.js') }}"></script>
+
+    {% block scripts %}{% endblock %}
 
 </body>
 </html>
