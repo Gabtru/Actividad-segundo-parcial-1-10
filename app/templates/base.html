@@ -21,10 +21,15 @@
             <a href="{{ url_for('main.menu') }}" class="navbar-brand">
                 <strong>App MVC</strong>
             </a>
+
             <nav class="navbar-links">
                 {% if current_user.is_authenticated %}
                     <span>{{ current_user.email }}</span>
                     <a href="{{ url_for('main.menu') }}">Menú</a>
+
+                    <!-- 🔥 Enlace nuevo al Ejercicio 8.5 -->
+                    <a href="{{ url_for('main.ejercicio_85') }}">Ejercicio 8.5</a>
+
                     <a href="{{ url_for('auth.logout') }}">Salir</a>
                 {% else %}
                     <a href="{{ url_for('auth.login') }}">Entrar</a>

@@ -9,11 +9,14 @@ from ..models import Product, db, User
 
 main_bp = Blueprint("main", __name__)
 
-# Formulario WTForms para validar productos
+# ============================================================
+# FORMULARIO DE PRODUCTOS
+# ============================================================
+
 class ProductForm(Form):
     """
-    Este formulario valida los datos tanto para la ruta HTML (/nuevo)
-    como para la ruta API (/api/productos POST).
+    Formulario para validar productos tanto desde HTML (/nuevo)
+    como desde la API (/api/productos).
     """
     name = StringField("Nombre", [DataRequired(message="El nombre es obligatorio.")])
     price = DecimalField(
@@ -86,7 +89,7 @@ def preferencias():
 @login_required
 def nuevo():
     """
-    Ruta para crear un nuevo producto usando ProductForm.
+    Ruta HTML para crear productos.
     """
     form = ProductForm(request.form)
 
@@ -98,7 +101,7 @@ def nuevo():
 
         db.session.add(p)
         db.session.commit()
-        flash("Producto creado (vía HTML).", "success")
+        flash("Producto creado correctamente.", "success")
         return redirect(url_for("main.productos"))
 
     return render_template("nuevo.html", form=form)
@@ -116,7 +119,7 @@ def productos():
 @login_required
 def ajax_timeout():
     """
-    Muestra el template del ejercicio AJAX con timeout y abort.
+    Template para ejercicio de timeout + abort XHR.
     """
     return render_template("ajax_timeout.html")
 
@@ -124,9 +127,20 @@ def ajax_timeout():
 @login_required
 def descarga_xhr():
     """
-    Muestra el template del ejercicio de descarga con progreso XHR.
+    Template para ejercicio de descarga con progreso.
     """
     return render_template("descarga_xhr.html")
+
+# ------------------------------------------------------------
+# 🔥 NUEVA RUTA PARA EJERCICIO 8.5
+# ------------------------------------------------------------
+@main_bp.route("/ejercicio8_5")
+@login_required
+def ejercicio_8_5():
+    """
+    Renderiza el ejercicio AJAX 8.5 (integración del template proporcionado).
+    """
+    return render_template("ejercicio8.5.html")
 
 # ============================================================
 # API ENDPOINTS
@@ -135,9 +149,6 @@ def descarga_xhr():
 @main_bp.route("/api/productos", methods=["GET"])
 @login_required
 def api_get_productos():
-    """
-    Devuelve todos los productos.
-    """
     items = Product.query.order_by(Product.name.asc()).all()
     lista_productos = [item.to_dict() for item in items]
     return jsonify(lista_productos)
@@ -145,9 +156,6 @@ def api_get_productos():
 @main_bp.route("/api/productos", methods=["POST"])
 @login_required
 def api_create_producto():
-    """
-    Crea un producto (para AJAX).
-    """
     form = ProductForm(request.form)
 
     if form.validate():
@@ -159,15 +167,12 @@ def api_create_producto():
         db.session.add(p)
         db.session.commit()
         return jsonify(p.to_dict()), 201
-    else:
-        return jsonify({"errors": form.errors}), 400
+
+    return jsonify({"errors": form.errors}), 400
 
 @main_bp.route("/api/producto/<int:product_id>", methods=["DELETE"])
 @login_required
 def api_delete_producto(product_id):
-    """
-    Borra un producto.
-    """
     p = Product.query.get(product_id)
     if not p:
         abort(404)

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>8.5 - Catálogo AJAX (fetch) - E-commerce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Catálogo AJAX con <code>fetch()</code></h1>
+    <div class="tag">Sección 8.5 – Uso esencial y avanzado de fetch() en un e-commerce.</div>
+
+    <p>
+      Este ejemplo simula la carga del catálogo de productos y el detalle de un producto
+      usando <code>fetch()</code> con <strong>GET</strong> y <strong>POST</strong>.
+    </p>
+
+    <div id="estado-global" aria-live="polite"></div>
+
+    <section>
+      <h2>Productos</h2>
+      <button id="btn-recargar" class="btn btn-primary" type="button">Recargar catálogo</button>
+      <div id="lista-productos" class="grid" aria-live="polite"></div>
+    </section>
+
+    <section id="detalle" aria-live="polite">
+      <h2>Detalle de producto</h2>
+      <p>Selecciona un producto para ver el detalle y simular el "añadir al carrito".</p>
+      <div id="detalle-contenido"></div>
+    </section>
+
+    <script src="{{ url_for('static', filename='app_ejercicio8.5.js') }}" defer></script>
+  </body>
+</html>
